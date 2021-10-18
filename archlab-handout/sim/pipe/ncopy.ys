@@ -17,6 +17,11 @@ ncopy:
 # You can modify this portion
 
     xorq    %rax,           %rax		# count = 0;
+    irmovq  $-1,            %r8
+    irmovq  $1,             %r9
+    irmovq  $-6,            %r12
+    irmovq  $5,             %r13
+    irmovq  $0x30,          %r14
     jmp     While
 
 JMP_6:
@@ -24,53 +29,53 @@ JMP_6:
     rmmovq  %r10,           $(%rsi)
     andq    %r10,           %r10
     jle     JMP_6_1
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_6_1:
     mrmovq  $16(%rdi),      %r10
     rmmovq  %r11,           $8(%rsi)
     andq    %r11,           %r11
     jle     JMP_6_2
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_6_2:
     mrmovq  $24(%rdi),      %r11
     rmmovq  %r10,           $16(%rsi)
     andq    %r10,           %r10
     jle     JMP_6_3
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_6_3:
     mrmovq  $32(%rdi),      %r10
     rmmovq  %r11,           $24(%rsi)
     andq    %r11,           %r11
     jle     JMP_6_4
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_6_4:
     mrmovq  $40(%rdi),      %r11
     rmmovq  %r10,           $32(%rsi)
     andq    %r10,           %r10
     jle     JMP_6_5
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_6_5:
     rmmovq  %r11,           $40(%rsi)
     andq    %r11,           %r11
     jle     JMP_6_6
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_6_6:
-    iaddq   $0x30,          %rdi
-    iaddq   $0x30,          %rsi
+    addq   %r14,            %rdi
+    addq   %r14,            %rsi
 
 While:
     mrmovq  (%rdi),         %r10
-    iaddq   $-6,            %rdx
+    addq    %r12,           %rdx
     jge     JMP_6
-    iaddq   $5,             %rdx
+    addq    %r13,           %rdx
     je      JMP_1
-    iaddq   $-1,            %rdx
+    addq    %r8,            %rdx
     je      JMP_2
-    iaddq   $-1,            %rdx
+    addq    %r8,            %rdx
     je      JMP_3
-    iaddq   $-1,            %rdx
+    addq    %r8,            %rdx
     je      JMP_4
-    iaddq   $-1,            %rdx
+    addq    %r8,            %rdx
     je      JMP_5
     ret
 
@@ -79,30 +84,30 @@ JMP_5:
     rmmovq  %r10,           (%rsi)
     andq    %r10,           %r10
     jle     JMP_5_1
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_5_1:
     mrmovq  $16(%rdi),      %r10
     rmmovq  %r11,           $8(%rsi)
     andq    %r11,           %r11
     jle     JMP_5_2
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_5_2:
     mrmovq  $24(%rdi),      %r11
     rmmovq  %r10,           $16(%rsi)
     andq    %r10,           %r10
     jle     JMP_5_3
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_5_3:
     mrmovq  $32(%rdi),      %r10
     rmmovq  %r11,           $24(%rsi)
     andq    %r11,           %r11
     jle     JMP_5_4
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_5_4:
     rmmovq  %r10,           $32(%rsi)
     andq    %r10,           %r10
     jle     JMP_5_5
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_5_5:
     ret
 
@@ -111,24 +116,24 @@ JMP_4:
     rmmovq  %r10,           (%rsi)
     andq    %r10,           %r10
     jle     JMP_4_1
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_4_1:
     mrmovq  $16(%rdi),      %r10
     rmmovq  %r11,           $8(%rsi)
     andq    %r11,           %r11
     jle     JMP_4_2
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_4_2:
     mrmovq  $24(%rdi),      %r11
     rmmovq  %r10,           $16(%rsi)
     andq    %r10,           %r10
     jle     JMP_4_3
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_4_3:
     rmmovq  %r11,           $24(%rsi)
     andq    %r11,           %r11
     jle     JMP_4_4
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_4_4:
     ret
 
@@ -137,18 +142,18 @@ JMP_3:
     rmmovq  %r10,           (%rsi)
     andq    %r10,           %r10
     jle     JMP_3_1
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_3_1:
     mrmovq  $16(%rdi),      %r10
     rmmovq  %r11,           $8(%rsi)
     andq    %r11,           %r11
     jle     JMP_3_2
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_3_2:
     rmmovq  %r10,           $16(%rsi)
     andq    %r10,           %r10
     jle     JMP_3_3
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_3_3:
     ret
 
@@ -157,12 +162,12 @@ JMP_2:
     rmmovq  %r10,           (%rsi)
     andq    %r10,           %r10
     jle     JMP_2_1
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_2_1:
     rmmovq  %r11,           $8(%rsi)
     andq    %r11,           %r11
     jle     JMP_2_2
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_2_2:
     ret
 
@@ -170,7 +175,7 @@ JMP_1:
     rmmovq  %r10,           (%rsi)
     andq    %r10,           %r10
     jle     JMP_1_1
-    iaddq   $1,             %rax
+    addq    %r9,            %rax
 JMP_1_1:
 
 ##################################################################
